@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roblox Executor</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#000000',secondary:'#1a1a1a'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+background-color: #ffffff;
+color: #1a1a1a;
+}
+.scrollbar-hide::-webkit-scrollbar {
+display: none;
+}
+.scrollbar-hide {
+-ms-overflow-style: none;
+scrollbar-width: none;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.tab-content {
+display: none;
+}
+.tab-content.active {
+display: block;
+}
+.discord-tooltip {
+visibility: hidden;
+opacity: 0;
+transition: opacity 0.3s;
+}
+.discord-tooltip.show {
+visibility: visible;
+opacity: 1;
+}
+@media (min-width: 768px) {
+.pc-sidebar {
+width: 240px;
+transition: width 0.3s ease;
+}
+.pc-sidebar.collapsed {
+width: 80px;
+}
+.pc-content {
+margin-left: 240px;
+transition: margin-left 0.3s ease;
+}
+.pc-content.sidebar-collapsed {
+margin-left: 80px;
+}
+}
+</style>
+</head>
+<body class="min-h-screen">
+<!-- Device Detection -->
+<div id="mobile-view" class="md:hidden">
+<!-- Mobile Nav Bar -->
+<div class="fixed top-0 left-0 w-full bg-white shadow-md z-50 px-4 py-3 flex items-center justify-between">
+<div class="flex items-center">
+<h1 class="text-xl font-['Pacifico'] text-primary">logo</h1>
+</div>
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 flex items-center justify-center cursor-pointer">
+<i class="ri-notification-3-line ri-lg"></i>
+</div>
+<div class="w-8 h-8 flex items-center justify-center cursor-pointer">
+<i class="ri-settings-3-line ri-lg"></i>
+</div>
+</div>
+</div>
+<!-- Mobile Content Area -->
+<div class="pt-16 pb-20 px-4">
+<!-- Home Tab Content -->
+<div id="home-tab" class="tab-content active">
+<div class="mb-6">
+<div class="bg-gradient-to-r from-black to-gray-900 rounded-lg p-5 text-white mb-5 border border-gray-800">
+<h2 class="text-xl font-semibold mb-2">Welcome to Silent Hub</h2>
+<p class="text-sm opacity-90">The most powerful Roblox script hub for your gaming experience</p>
+<div class="mt-4 flex items-center">
+<span class="text-xs bg-white/20 rounded-full px-3 py-1">Version 2.5.1</span>
+<span class="text-xs ml-2">Released: April 25, 2025</span>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-5 mb-5">
+<h3 class="text-lg font-medium mb-3">Quick Actions</h3>
+<div class="grid grid-cols-3 gap-3">
+<div class="flex flex-col items-center cursor-pointer">
+<div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-2">
+<i class="ri-download-2-line ri-lg text-primary"></i>
+</div>
+<span class="text-xs text-center">Download</span>
+</div>
+<div class="flex flex-col items-center cursor-pointer">
+<a href="https://readdy.ai/home/54b4e584-4961-4594-9461-aaa1f3cb883b/a2c06430-b947-467f-8a7c-e14e07818335" data-readdy="true">
+<div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-2">
+<i class="ri-code-box-line ri-lg text-primary"></i>
+</div>
+</a>
+<span class="text-xs text-center">Scripts</span>
+</div>
+<div class="flex flex-col items-center cursor-pointer" id="discord-btn-mobile">
+<div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-2">
+<i class="ri-discord-line ri-lg text-primary"></i>
+</div>
+<span class="text-xs text-center">Discord</span>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-5 mb-5">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-lg font-medium">Popular Scripts</h3>
+<span class="text-xs text-gray-500">Updated Daily</span>
+</div>
+<div class="space-y-3 mb-4">
+<div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+<div class="flex items-center">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
+<i class="ri-gamepad-line text-primary"></i>
+</div>
+<div>
+<h4 class="font-medium text-sm">BGSI</h4>
+<p class="text-xs text-gray-500">Auto Blow, Auto Sell, More</p>
+</div>
+</div>
+<button class="text-primary">
+<i class="ri-download-2-line"></i>
+</button>
+</div>
+<div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+<div class="flex items-center">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
+<i class="ri-sword-line text-primary"></i>
+</div>
+<div>
+<h4 class="font-medium text-sm">Fisch</h4>
+<p class="text-xs text-gray-500">Auto Farm, Bypass, More</p>
+</div>
+</div>
+<button class="text-primary">
+<i class="ri-download-2-line"></i>
+</button>
+</div>
+<div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+<div class="flex items-center">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
+<i class="ri-boxing-line text-primary"></i>
+</div>
+<div>
+<h4 class="font-medium text-sm">Combat Warriors</h4>
+<p class="text-xs text-gray-500">Silent Aim, Kill Aura</p>
+</div>
+</div>
+<button class="text-primary">
+<i class="ri-download-2-line"></i>
+</button>
+</div>
+</div>
+<button class="w-full bg-primary text-white py-3 rounded-button font-medium flex items-center justify-center cursor-pointer">
+<i class="ri-apps-line mr-2"></i>
+View All Scripts
+</button>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-5 mb-5">
+<h3 class="text-lg font-medium mb-3">Features</h3>
+<div class="space-y-3">
+<div class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center text-primary mr-3">
+<i class="ri-shield-check-line ri-lg"></i>
+</div>
+<div>
+<h4 class="font-medium text-sm">Undetectable Execution</h4>
+<p class="text-xs text-gray-500">Execute scripts without being detected by Roblox's anti-cheat system</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center text-primary mr-3">
+<i class="ri-speed-up-line ri-lg"></i>
+</div>
+<div>
+<h4 class="font-medium text-sm">High Performance</h4>
+<p class="text-xs text-gray-500">Optimized for speed with minimal impact on game performance</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center text-primary mr-3">
+<i class="ri-code-s-slash-line ri-lg"></i>
+</div>
+<div>
+<h4 class="font-medium text-sm">Script Library</h4>
+<p class="text-xs text-gray-500">Access to a vast library of pre-made scripts for popular games</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center text-primary mr-3">
+<i class="ri-tools-line ri-lg"></i>
+</div>
+<div>
+<h4 class="font-medium text-sm">Advanced Debugging</h4>
+<p class="text-xs text-gray-500">Built-in tools for script debugging and optimization</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Changelog Tab Content -->
+<div id="changelog-tab" class="tab-content">
+<div class="mb-6">
+<div class="bg-white rounded-lg shadow-sm p-5 mb-5">
+<h3 class="text-lg font-medium mb-4">Changelog</h3>
+<div class="space-y-5">
+<div class="border-b pb-4">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-semibold">Version 2.5.1</h4>
+<span class="text-xs bg-blue-100 text-blue-700 rounded-full px-2 py-1">Latest</span>
+</div>
+<div class="text-xs text-gray-500 mb-3">Released on April 25, 2025</div>
+<ul class="space-y-2 text-sm">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-add-line"></i>
+</div>
+<span>Added support for Roblox's latest update (version 2.598.560)</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-blue-500 mr-2">
+<i class="ri-bug-line"></i>
+</div>
+<span>Fixed script execution issues on certain games</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-purple-500 mr-2">
+<i class="ri-speed-up-line"></i>
+</div>
+<span>Improved execution speed by 15%</span>
+</li>
+</ul>
+</div>
+<div class="border-b pb-4">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-semibold">Version 2.5.0</h4>
+<span class="text-xs bg-gray-100 text-gray-700 rounded-full px-2 py-1">Stable</span>
+</div>
+<div class="text-xs text-gray-500 mb-3">Released on April 10, 2025</div>
+<ul class="space-y-2 text-sm">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-add-line"></i>
+</div>
+<span>Added new script editor with syntax highlighting</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-add-line"></i>
+</div>
+<span>Introduced dark mode support</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-blue-500 mr-2">
+<i class="ri-bug-line"></i>
+</div>
+<span>Fixed memory leak issues</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-orange-500 mr-2">
+<i class="ri-refresh-line"></i>
+</div>
+<span>Updated UI for better user experience</span>
+</li>
+</ul>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-semibold">Version 2.4.8</h4>
+<span class="text-xs bg-gray-100 text-gray-700 rounded-full px-2 py-1">Legacy</span>
+</div>
+<div class="text-xs text-gray-500 mb-3">Released on March 15, 2025</div>
+<ul class="space-y-2 text-sm">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-blue-500 mr-2">
+<i class="ri-bug-line"></i>
+</div>
+<span>Fixed compatibility issues with Windows 11</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-purple-500 mr-2">
+<i class="ri-speed-up-line"></i>
+</div>
+<span>Optimized startup time</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-red-500 mr-2">
+<i class="ri-delete-bin-line"></i>
+</div>
+<span>Removed deprecated functions</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Credits Tab Content -->
+<div id="credits-tab" class="tab-content">
+<div class="mb-6">
+<div class="bg-white rounded-lg shadow-sm p-5 mb-5">
+<h3 class="text-lg font-medium mb-4">Development Team</h3>
+<div class="space-y-4">
+<div class="flex items-center p-3 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+<span class="text-lg font-medium">JD</span>
+</div>
+<div>
+<h4 class="font-medium">James Davidson</h4>
+<p class="text-xs text-gray-500">Lead Developer & Founder</p>
+</div>
+</div>
+<div class="flex items-center p-3 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-white mr-3">
+<span class="text-lg font-medium">EL</span>
+</div>
+<div>
+<h4 class="font-medium">Emily Liu</h4>
+<p class="text-xs text-gray-500">Security Specialist</p>
+</div>
+</div>
+<div class="flex items-center p-3 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center text-white mr-3">
+<span class="text-lg font-medium">MR</span>
+</div>
+<div>
+<h4 class="font-medium">Michael Rodriguez</h4>
+<p class="text-xs text-gray-500">UI/UX Designer</p>
+</div>
+</div>
+<div class="flex items-center p-3 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center text-white mr-3">
+<span class="text-lg font-medium">AK</span>
+</div>
+<div>
+<h4 class="font-medium">Alex Kim</h4>
+<p class="text-xs text-gray-500">Script Library Manager</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-5 mb-5">
+<h3 class="text-lg font-medium mb-4">Special Thanks</h3>
+<div class="space-y-3">
+<div class="p-3 bg-gray-50 rounded-lg">
+<h4 class="font-medium">Roblox Developer Community</h4>
+<p class="text-xs text-gray-500">For continuous support and feedback</p>
+</div>
+<div class="p-3 bg-gray-50 rounded-lg">
+<h4 class="font-medium">Script Contributors</h4>
+<p class="text-xs text-gray-500">Over 200 contributors to our script library</p>
+</div>
+<div class="p-3 bg-gray-50 rounded-lg">
+<h4 class="font-medium">Beta Testers</h4>
+<p class="text-xs text-gray-500">For helping us identify and fix issues</p>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-5">
+<h3 class="text-lg font-medium mb-4">Technologies Used</h3>
+<div class="grid grid-cols-2 gap-3">
+<div class="p-3 bg-gray-50 rounded-lg flex flex-col items-center">
+<div class="w-10 h-10 flex items-center justify-center mb-2">
+<i class="ri-code-s-slash-line ri-xl text-primary"></i>
+</div>
+<h4 class="text-sm font-medium">Lua</h4>
+</div>
+<div class="p-3 bg-gray-50 rounded-lg flex flex-col items-center">
+<div class="w-10 h-10 flex items-center justify-center mb-2">
+<i class="ri-window-line ri-xl text-primary"></i>
+</div>
+<h4 class="text-sm font-medium">C++</h4>
+</div>
+<div class="p-3 bg-gray-50 rounded-lg flex flex-col items-center">
+<div class="w-10 h-10 flex items-center justify-center mb-2">
+<i class="ri-code-box-line ri-xl text-primary"></i>
+</div>
+<h4 class="text-sm font-medium">Python</h4>
+</div>
+<div class="p-3 bg-gray-50 rounded-lg flex flex-col items-center">
+<div class="w-10 h-10 flex items-center justify-center mb-2">
+<i class="ri-html5-line ri-xl text-primary"></i>
+</div>
+<h4 class="text-sm font-medium">Web Technologies</h4>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Settings Tab Content -->
+<div id="settings-tab" class="tab-content">
+<div class="mb-6">
+<div class="bg-white rounded-lg shadow-sm p-5 mb-5">
+<h3 class="text-lg font-medium mb-4">Application Settings</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium text-sm">Auto Update</h4>
+<p class="text-xs text-gray-500">Automatically check for updates</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" value="" class="sr-only peer" checked>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium text-sm">Dark Mode</h4>
+<p class="text-xs text-gray-500">Enable dark theme</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" value="" class="sr-only peer">
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium text-sm">Notifications</h4>
+<p class="text-xs text-gray-500">Enable push notifications</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" value="" class="sr-only peer" checked>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium text-sm">Analytics</h4>
+<p class="text-xs text-gray-500">Share anonymous usage data</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" value="" class="sr-only peer">
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-5 mb-5">
+<h3 class="text-lg font-medium mb-4">Executor Settings</h3>
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-medium mb-1">Script Execution Mode</label>
+<div class="relative">
+<div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer">
+<span>Standard Mode</span>
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium mb-1">Auto-Save Scripts</label>
+<div class="relative">
+<div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer">
+<span>Every 5 minutes</span>
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium text-sm">Auto-Inject on Game Launch</h4>
+<p class="text-xs text-gray-500">Automatically inject when game starts</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" value="" class="sr-only peer" checked>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-5">
+<h3 class="text-lg font-medium mb-4">Account</h3>
+<div class="flex items-center p-3 bg-gray-50 rounded-lg mb-4">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+<span class="text-lg font-medium">GD</span>
+</div>
+<div>
+<h4 class="font-medium">Guest User</h4>
+<p class="text-xs text-gray-500">Free Plan</p>
+</div>
+</div>
+<button class="w-full bg-primary text-white py-3 rounded-button font-medium flex items-center justify-center cursor-pointer mb-3">
+<i class="ri-code-box-line mr-2"></i>
+Browse Scripts
+</button>
+<button class="w-full bg-white border border-gray-300 text-gray-700 py-3 rounded-button font-medium flex items-center justify-center cursor-pointer">
+<i class="ri-star-line mr-2"></i>
+Featured Scripts
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Mobile Tab Bar -->
+<div class="fixed bottom-0 left-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-50">
+<div class="grid grid-cols-4 h-16">
+<div class="flex flex-col items-center justify-center cursor-pointer tab-button active" data-tab="home-tab">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-home-5-line"></i>
+</div>
+<span class="text-xs mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center cursor-pointer tab-button" data-tab="changelog-tab">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-file-list-3-line"></i>
+</div>
+<span class="text-xs mt-1">Changelog</span>
+</div>
+<div class="flex flex-col items-center justify-center cursor-pointer tab-button" data-tab="credits-tab">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-team-line"></i>
+</div>
+<span class="text-xs mt-1">Credits</span>
+</div>
+<div class="flex flex-col items-center justify-center cursor-pointer tab-button" data-tab="settings-tab">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-settings-3-line"></i>
+</div>
+<span class="text-xs mt-1">Settings</span>
+</div>
+</div>
+</div>
+<!-- Discord Tooltip -->
+<div id="discord-tooltip" class="discord-tooltip fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-4 z-50 w-4/5">
+<div class="text-center mb-3">
+<div class="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-3">
+<i class="ri-discord-fill ri-2x text-primary"></i>
+</div>
+<h3 class="text-lg font-medium">Join Our Discord</h3>
+<p class="text-sm text-gray-500 mt-1">Get support and connect with other users</p>
+</div>
+<div class="bg-gray-100 rounded p-3 flex items-center justify-between mb-4">
+<span class="text-sm font-medium">discord.gg/silenthub</span>
+<button id="copy-discord" class="text-primary">
+<i class="ri-file-copy-line"></i>
+</button>
+</div>
+<div class="flex space-x-2">
+<button id="discord-cancel" class="flex-1 py-2 border border-gray-300 rounded-button text-gray-700 font-medium cursor-pointer">Cancel</button>
+<button id="discord-open" class="flex-1 py-2 bg-primary text-white rounded-button font-medium cursor-pointer">Open Discord</button>
+</div>
+</div>
+</div>
+<!-- PC View -->
+<div id="pc-view" class="hidden md:block">
+<!-- PC Window Controls -->
+<div class="fixed top-0 left-0 w-full bg-white shadow-sm z-50 flex items-center justify-between px-4 py-2">
+<div class="flex items-center">
+<button id="toggle-sidebar" class="w-8 h-8 flex items-center justify-center mr-3 cursor-pointer">
+<i class="ri-menu-line ri-lg"></i>
+</button>
+<h1 class="text-xl font-['Pacifico'] text-primary">logo</h1>
+</div>
+<div class="flex items-center space-x-2">
+<div class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full cursor-pointer">
+<i class="ri-question-line"></i>
+</div>
+<div class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full cursor-pointer">
+<i class="ri-notification-3-line"></i>
+</div>
+<div class="ml-3 flex items-center bg-gray-100 rounded-full pl-2 pr-3 py-1 cursor-pointer">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white mr-2">
+<span class="text-xs font-medium">G</span>
+</div>
+<span class="text-sm">Guest</span>
+</div>
+</div>
+</div>
+<!-- PC Sidebar -->
+<div class="pc-sidebar fixed left-0 top-0 h-full bg-white shadow-sm pt-14 z-40">
+<div class="p-4">
+<div class="space-y-1">
+<div class="flex items-center p-3 bg-primary/10 text-primary rounded-lg cursor-pointer sidebar-item active" data-tab="home-tab">
+<div class="w-6 h-6 flex items-center justify-center mr-3">
+<i class="ri-home-5-line"></i>
+</div>
+<span class="sidebar-text">Home</span>
+</div>
+<div class="flex items-center p-3 hover:bg-gray-100 rounded-lg cursor-pointer sidebar-item" data-tab="changelog-tab">
+<div class="w-6 h-6 flex items-center justify-center mr-3">
+<i class="ri-file-list-3-line"></i>
+</div>
+<span class="sidebar-text">Changelog</span>
+</div>
+<div class="flex items-center p-3 hover:bg-gray-100 rounded-lg cursor-pointer sidebar-item" data-tab="credits-tab">
+<div class="w-6 h-6 flex items-center justify-center mr-3">
+<i class="ri-team-line"></i>
+</div>
+<span class="sidebar-text">Credits</span>
+</div>
+<div class="flex items-center p-3 hover:bg-gray-100 rounded-lg cursor-pointer sidebar-item" data-tab="settings-tab">
+<div class="w-6 h-6 flex items-center justify-center mr-3">
+<i class="ri-settings-3-line"></i>
+</div>
+<span class="sidebar-text">Settings</span>
+</div>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full p-4">
+<div class="p-4 bg-primary/5 rounded-lg">
+<div class="flex items-center mb-3">
+<div class="w-8 h-8 flex items-center justify-center bg-primary/20 text-primary rounded-full mr-2">
+<i class="ri-rocket-line"></i>
+</div>
+<span class="font-medium sidebar-text">Free Plan</span>
+</div>
+<p class="text-xs text-gray-500 mb-3 sidebar-text">Upgrade to Pro for advanced features and priority support.</p>
+<button class="w-full bg-primary text-white py-2 rounded-button text-sm font-medium cursor-pointer">
+<span class="sidebar-text">Upgrade Now</span>
+<i class="ri-arrow-right-up-line ml-1 hidden sidebar-icon-only"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- PC Content Area -->
+<div class="pc-content pt-14 min-h-screen">
+<!-- Home Tab Content -->
+<div id="pc-home-tab" class="tab-content active p-6">
+<div class="grid grid-cols-3 gap-6">
+<div class="col-span-2">
+<div class="bg-gradient-to-r from-black to-gray-900 rounded-lg p-6 text-white mb-6">
+<div class="flex items-start justify-between">
+<div>
+<h2 class="text-2xl font-semibold mb-2">Welcome to Silent Hub</h2>
+<p class="opacity-90 mb-4">The most powerful Roblox script hub for your gaming experience</p>
+<div class="flex items-center space-x-3">
+<span class="bg-white/20 rounded-full px-3 py-1 text-sm">Version 2.5.1</span>
+<span class="text-sm">Released: April 25, 2025</span>
+</div>
+</div>
+<div class="w-24 h-24 flex items-center justify-center">
+<i class="ri-code-box-fill ri-3x"></i>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4 mb-6">
+<div class="bg-white rounded-lg shadow-sm p-5 flex flex-col items-center cursor-pointer" id="discord-btn-pc">
+<div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+<i class="ri-discord-line ri-xl text-primary"></i>
+</div>
+<h3 class="font-medium text-center">Join Discord</h3>
+<p class="text-xs text-gray-500 text-center mt-1">Get support and updates</p>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-5 flex flex-col items-center cursor-pointer">
+<div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+<i class="ri-code-s-slash-line ri-xl text-primary"></i>
+</div>
+<h3 class="font-medium text-center">Script Library</h3>
+<p class="text-xs text-gray-500 text-center mt-1">Browse ready-to-use scripts</p>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-5 flex flex-col items-center cursor-pointer">
+<div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+<i class="ri-video-chat-line ri-xl text-primary"></i>
+</div>
+<h3 class="font-medium text-center">Tutorials</h3>
+<p class="text-xs text-gray-500 text-center mt-1">Learn how to use RoboExec</p>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+<h3 class="text-lg font-medium mb-4">Features</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center text-primary mr-3">
+<i class="ri-shield-check-line ri-lg"></i>
+</div>
+<div>
+<h4 class="font-medium">Undetectable Execution</h4>
+<p class="text-sm text-gray-500">Execute scripts without being detected by Roblox's anti-cheat system</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center text-primary mr-3">
+<i class="ri-speed-up-line ri-lg"></i>
+</div>
+<div>
+<h4 class="font-medium">High Performance</h4>
+<p class="text-sm text-gray-500">Optimized for speed with minimal impact on game performance</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center text-primary mr-3">
+<i class="ri-code-s-slash-line ri-lg"></i>
+</div>
+<div>
+<h4 class="font-medium">Script Library</h4>
+<p class="text-sm text-gray-500">Access to a vast library of pre-made scripts for popular games</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center text-primary mr-3">
+<i class="ri-tools-line ri-lg"></i>
+</div>
+<div>
+<h4 class="font-medium">Advanced Debugging</h4>
+<p class="text-sm text-gray-500">Built-in tools for script debugging and optimization</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center text-primary mr-3">
+<i class="ri-palette-line ri-lg"></i>
+</div>
+<div>
+<h4 class="font-medium">Customizable UI</h4>
+<p class="text-sm text-gray-500">Personalize the interface to suit your preferences</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center text-primary mr-3">
+<i class="ri-cloud-line ri-lg"></i>
+</div>
+<div>
+<h4 class="font-medium">Cloud Sync</h4>
+<p class="text-sm text-gray-500">Save and access your scripts from any device</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-6">
+<h3 class="text-lg font-medium mb-4">System Requirements</h3>
+<div class="grid grid-cols-2 gap-6">
+<div>
+<h4 class="font-medium mb-2">Minimum Requirements</h4>
+<ul class="space-y-2 text-sm text-gray-700">
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>Windows 10 (64-bit)</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>4GB RAM</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>Intel Core i3 or equivalent</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>100MB free disk space</span>
+</li>
+</ul>
+</div>
+<div>
+<h4 class="font-medium mb-2">Recommended</h4>
+<ul class="space-y-2 text-sm text-gray-700">
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>Windows 10/11 (64-bit)</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>8GB RAM</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>Intel Core i5 or equivalent</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>500MB free disk space</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="col-span-1">
+<div class="bg-white rounded-lg shadow-sm p-6 mb-6 sticky top-20">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-lg font-medium">Featured Scripts</h3>
+<span class="text-sm text-gray-500">Top Rated</span>
+</div>
+<div class="space-y-4 mb-6">
+<div class="p-4 bg-gray-50 rounded-lg">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
+<i class="ri-gamepad-line text-primary"></i>
+</div>
+<div>
+<h4 class="font-medium">Blox Fruits</h4>
+<p class="text-xs text-gray-500">Ultimate Script</p>
+</div>
+</div>
+<span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">New</span>
+</div>
+<div class="space-y-1 mb-3">
+<div class="flex items-center text-sm">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span>Auto Farm All Bosses</span>
+</div>
+<div class="flex items-center text-sm">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span>Auto Raid/Dungeon</span>
+</div>
+<div class="flex items-center text-sm">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span>ESP & Player Tracker</span>
+</div>
+</div>
+<button class="w-full bg-primary text-white py-2 rounded-button text-sm font-medium">Get Script</button>
+</div>
+<div class="p-4 bg-gray-50 rounded-lg">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
+<i class="ri-sword-line text-primary"></i>
+</div>
+<div>
+<h4 class="font-medium">Blade Ball</h4>
+<p class="text-xs text-gray-500">Pro Script</p>
+</div>
+</div>
+<span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Popular</span>
+</div>
+<div class="space-y-1 mb-3">
+<div class="flex items-center text-sm">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span>Auto Parry</span>
+</div>
+<div class="flex items-center text-sm">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span>Auto Ability</span>
+</div>
+<div class="flex items-center text-sm">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span>Visual Effects</span>
+</div>
+</div>
+<button class="w-full bg-primary text-white py-2 rounded-button text-sm font-medium">Get Script</button>
+</div>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg mb-4">
+<div class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center text-primary mr-3">
+<i class="ri-discord-fill ri-lg"></i>
+</div>
+<div>
+<h4 class="font-medium text-sm">Join Our Community</h4>
+<p class="text-xs text-gray-500">Get access to exclusive scripts and updates on our Discord server</p>
+</div>
+</div>
+</div>
+<button class="w-full bg-primary text-white py-3 rounded-button font-medium flex items-center justify-center cursor-pointer mb-3">
+<i class="ri-apps-line mr-2"></i>
+Browse All Scripts
+</button>
+<button class="w-full bg-white border border-gray-300 text-gray-700 py-3 rounded-button font-medium flex items-center justify-center cursor-pointer">
+<i class="ri-star-line mr-2"></i>
+Most Popular
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Changelog Tab Content -->
+<div id="pc-changelog-tab" class="tab-content p-6">
+<div class="flex mb-6">
+<div class="flex-1">
+<h2 class="text-2xl font-semibold">Changelog</h2>
+<p class="text-gray-500">Track all updates and improvements to RoboExec</p>
+</div>
+<div class="flex items-center space-x-3">
+<div class="relative">
+<div class="flex items-center justify-between p-2 bg-gray-100 rounded-lg cursor-pointer w-40">
+<span class="text-sm">All Versions</span>
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+<div class="relative">
+<div class="flex items-center bg-gray-100 rounded-lg px-3 py-2">
+<div class="w-5 h-5 flex items-center justify-center text-gray-500 mr-2">
+<i class="ri-search-line"></i>
+</div>
+<input type="text" placeholder="Search changes..." class="bg-transparent border-none outline-none text-sm w-40">
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-6">
+<div class="col-span-1">
+<div class="bg-white rounded-lg shadow-sm p-5 sticky top-20">
+<h3 class="text-lg font-medium mb-4">Version History</h3>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 bg-primary/10 text-primary rounded-lg cursor-pointer">
+<div class="flex items-center">
+<div class="w-8 h-8 flex items-center justify-center bg-primary/20 rounded-full mr-3">
+<span class="text-xs font-medium">2.5</span>
+</div>
+<div>
+<h4 class="font-medium">Version 2.5.1</h4>
+<p class="text-xs">April 25, 2025</p>
+</div>
+</div>
+<span class="text-xs bg-blue-100 text-blue-700 rounded-full px-2 py-1">Latest</span>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="flex items-center">
+<div class="w-8 h-8 flex items-center justify-center bg-gray-200 rounded-full mr-3">
+<span class="text-xs font-medium">2.5</span>
+</div>
+<div>
+<h4 class="font-medium">Version 2.5.0</h4>
+<p class="text-xs text-gray-500">April 10, 2025</p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="flex items-center">
+<div class="w-8 h-8 flex items-center justify-center bg-gray-200 rounded-full mr-3">
+<span class="text-xs font-medium">2.4</span>
+</div>
+<div>
+<h4 class="font-medium">Version 2.4.8</h4>
+<p class="text-xs text-gray-500">March 15, 2025</p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="flex items-center">
+<div class="w-8 h-8 flex items-center justify-center bg-gray-200 rounded-full mr-3">
+<span class="text-xs font-medium">2.4</span>
+</div>
+<div>
+<h4 class="font-medium">Version 2.4.7</h4>
+<p class="text-xs text-gray-500">March 1, 2025</p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="flex items-center">
+<div class="w-8 h-8 flex items-center justify-center bg-gray-200 rounded-full mr-3">
+<span class="text-xs font-medium">2.4</span>
+</div>
+<div>
+<h4 class="font-medium">Version 2.4.6</h4>
+<p class="text-xs text-gray-500">February 15, 2025</p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="flex items-center">
+<div class="w-8 h-8 flex items-center justify-center bg-gray-200 rounded-full mr-3">
+<span class="text-xs font-medium">2.4</span>
+</div>
+<div>
+<h4 class="font-medium">Version 2.4.5</h4>
+<p class="text-xs text-gray-500">February 1, 2025</p>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-4 flex justify-center">
+<button class="text-primary text-sm font-medium cursor-pointer">View All Versions</button>
+</div>
+</div>
+</div>
+<div class="col-span-2">
+<div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+<div class="flex justify-between items-center mb-4">
+<div>
+<h3 class="text-xl font-semibold">Version 2.5.1</h3>
+<p class="text-sm text-gray-500">Released on April 25, 2025</p>
+</div>
+<span class="text-sm bg-blue-100 text-blue-700 rounded-full px-3 py-1">Latest</span>
+</div>
+<div class="space-y-4">
+<div>
+<h4 class="font-medium text-primary mb-2">New Features</h4>
+<ul class="space-y-2">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2 mt-0.5">
+<i class="ri-add-line"></i>
+</div>
+<div>
+<span class="text-sm">Added support for Roblox's latest update (version 2.598.560)</span>
+<p class="text-xs text-gray-500 mt-1">Ensures compatibility with the newest Roblox client version</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2 mt-0.5">
+<i class="ri-add-line"></i>
+</div>
+<div>
+<span class="text-sm">Added new keyboard shortcuts for common actions</span>
+<p class="text-xs text-gray-500 mt-1">Improves workflow efficiency for power users</p>
+</div>
+</li>
+</ul>
+</div>
+<div>
+<h4 class="font-medium text-blue-600 mb-2">Bug Fixes</h4>
+<ul class="space-y-2">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-blue-500 mr-2 mt-0.5">
+<i class="ri-bug-line"></i>
+</div>
+<div>
+<span class="text-sm">Fixed script execution issues on certain games</span>
+<p class="text-xs text-gray-500 mt-1">Resolves compatibility problems with Adopt Me, Blox Fruits, and Jailbreak</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-blue-500 mr-2 mt-0.5">
+<i class="ri-bug-line"></i>
+</div>
+<div>
+<span class="text-sm">Fixed UI scaling issues on high DPI displays</span>
+<p class="text-xs text-gray-500 mt-1">Improves appearance on 4K and other high-resolution monitors</p>
+</div>
+</li>
+</ul>
+</div>
+<div>
+<h4 class="font-medium text-purple-600 mb-2">Improvements</h4>
+<ul class="space-y-2">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-purple-500 mr-2 mt-0.5">
+<i class="ri-speed-up-line"></i>
+</div>
+<div>
+<span class="text-sm">Improved execution speed by 15%</span>
+<p class="text-xs text-gray-500 mt-1">Scripts now execute faster with less impact on game performance</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-purple-500 mr-2 mt-0.5">
+<i class="ri-speed-up-line"></i>
+</div>
+<div>
+<span class="text-sm">Reduced memory usage during extended gameplay sessions</span>
+<p class="text-xs text-gray-500 mt-1">Better resource management for longer play sessions</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+<div class="flex justify-between items-center mb-4">
+<div>
+<h3 class="text-xl font-semibold">Version 2.5.0</h3>
+<p class="text-sm text-gray-500">Released on April 10, 2025</p>
+</div>
+<span class="text-sm bg-gray-100 text-gray-700 rounded-full px-3 py-1">Stable</span>
+</div>
+<div class="space-y-4">
+<div>
+<h4 class="font-medium text-primary mb-2">New Features</h4>
+<ul class="space-y-2">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2 mt-0.5">
+<i class="ri-add-line"></i>
+</div>
+<div>
+<span class="text-sm">Added new script editor with syntax highlighting</span>
+<p class="text-xs text-gray-500 mt-1">Improved code editing experience with Lua syntax support</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2 mt-0.5">
+<i class="ri-add-line"></i>
+</div>
+<div>
+<span class="text-sm">Introduced dark mode support</span>
+<p class="text-xs text-gray-500 mt-1">Reduces eye strain during night-time usage</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2 mt-0.5">
+<i class="ri-add-line"></i>
+</div>
+<div>
+<span class="text-sm">Added script library with categorized scripts</span>
+<p class="text-xs text-gray-500 mt-1">Easy access to verified scripts for popular games</p>
+</div>
+</li>
+</ul>
+</div>
+<div>
+<h4 class="font-medium text-blue-600 mb-2">Bug Fixes</h4>
+<ul class="space-y-2">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-blue-500 mr-2 mt-0.5">
+<i class="ri-bug-line"></i>
+</div>
+<div>
+<span class="text-sm">Fixed memory leak issues</span>
+<p class="text-xs text-gray-500 mt-1">Addresses stability problems during extended usage</p>
+</div>
+</li>
+</ul>
+</div>
+<div>
+<h4 class="font-medium text-orange-600 mb-2">Changes</h4>
+<ul class="space-y-2">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-orange-500 mr-2 mt-0.5">
+<i class="ri-refresh-line"></i>
+</div>
+<div>
+<span class="text-sm">Updated UI for better user experience</span>
+<p class="text-xs text-gray-500 mt-1">Complete redesign of the interface for improved usability</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-orange-500 mr-2 mt-0.5">
+<i class="ri-refresh-line"></i>
+</div>
+<div>
+<span class="text-sm">Reorganized settings menu</span>
+<p class="text-xs text-gray-500 mt-1">More intuitive organization of configuration options</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Credits Tab Content -->
+<div id="pc-credits-tab" class="tab-content p-6">
+<h2 class="text-2xl font-semibold mb-2">Credits</h2>
+<p class="text-gray-500 mb-6">Meet the team behind RoboExec</p>
+<div class="grid grid-cols-3 gap-6 mb-6">
+<div class="bg-white rounded-lg shadow-sm p-6">
+<div class="flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-primary flex items-center justify-center text-white mb-4">
+<span class="text-2xl font-medium">JD</span>
+</div>
+<h3 class="text-xl font-semibold">James Davidson</h3>
+<p class="text-sm text-gray-500 mb-3">Lead Developer & Founder</p>
+<div class="flex space-x-2">
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-github-fill text-gray-700"></i>
+</div>
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-twitter-x-fill text-gray-700"></i>
+</div>
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-discord-fill text-gray-700"></i>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-6">
+<div class="flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-secondary flex items-center justify-center text-white mb-4">
+<span class="text-2xl font-medium">EL</span>
+</div>
+<h3 class="text-xl font-semibold">Emily Liu</h3>
+<p class="text-sm text-gray-500 mb-3">Security Specialist</p>
+<div class="flex space-x-2">
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-github-fill text-gray-700"></i>
+</div>
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-linkedin-box-fill text-gray-700"></i>
+</div>
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-discord-fill text-gray-700"></i>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-6">
+<div class="flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-purple-500 flex items-center justify-center text-white mb-4">
+<span class="text-2xl font-medium">MR</span>
+</div>
+<h3 class="text-xl font-semibold">Michael Rodriguez</h3>
+<p class="text-sm text-gray-500 mb-3">UI/UX Designer</p>
+<div class="flex space-x-2">
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-dribbble-line text-gray-700"></i>
+</div>
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-behance-fill text-gray-700"></i>
+</div>
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-discord-fill text-gray-700"></i>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-6">
+<div class="flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-green-500 flex items-center justify-center text-white mb-4">
+<span class="text-2xl font-medium">AK</span>
+</div>
+<h3 class="text-xl font-semibold">Alex Kim</h3>
+<p class="text-sm text-gray-500 mb-3">Script Library Manager</p>
+<div class="flex space-x-2">
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-github-fill text-gray-700"></i>
+</div>
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-youtube-fill text-gray-700"></i>
+</div>
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-discord-fill text-gray-700"></i>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-6">
+<div class="flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-orange-500 flex items-center justify-center text-white mb-4">
+<span class="text-2xl font-medium">SJ</span>
+</div>
+<h3 class="text-xl font-semibold">Sarah Johnson</h3>
+<p class="text-sm text-gray-500 mb-3">Community Manager</p>
+<div class="flex space-x-2">
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-twitter-x-fill text-gray-700"></i>
+</div>
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-instagram-line text-gray-700"></i>
+</div>
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-discord-fill text-gray-700"></i>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-6">
+<div class="flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-blue-500 flex items-center justify-center text-white mb-4">
+<span class="text-2xl font-medium">DP</span>
+</div>
+<h3 class="text-xl font-semibold">David Park</h3>
+<p class="text-sm text-gray-500 mb-3">Quality Assurance</p>
+<div class="flex space-x-2">
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-github-fill text-gray-700"></i>
+</div>
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-linkedin-box-fill text-gray-700"></i>
+</div>
+<div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer">
+<i class="ri-discord-fill text-gray-700"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="bg-white rounded-lg shadow-sm p-6">
+<h3 class="text-xl font-semibold mb-4">Special Thanks</h3>
+<div class="space-y-4">
+<div class="p-4 bg-gray-50 rounded-lg">
+<h4 class="font-medium">Roblox Developer Community</h4>
+<p class="text-sm text-gray-500">For continuous support and feedback</p>
+</div>
+<div class="p-4 bg-gray-50 rounded-lg">
+<h4 class="font-medium">Script Contributors</h4>
+<p class="text-sm text-gray-500">Over 200 contributors to our script library</p>
+</div>
+<div class="p-4 bg-gray-50 rounded-lg">
+<h4 class="font-medium">Beta Testers</h4>
+<p class="text-sm text-gray-500">For helping us identify and fix issues</p>
+</div>
+<div class="p-4 bg-gray-50 rounded-lg">
+<h4 class="font-medium">Open Source Community</h4>
+<p class="text-sm text-gray-500">For the tools and libraries that make our work possible</p>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-6">
+<h3 class="text-xl font-semibold mb-4">Technologies Used</h3>
+<div class="grid grid-cols-3 gap-4">
+<div class="p-4 bg-gray-50 rounded-lg flex flex-col items-center">
+<div class="w-12 h-12 flex items-center justify-center mb-2">
+<i class="ri-code-s-slash-line ri-2x text-primary"></i>
+</div>
+<h4 class="text-sm font-medium text-center">Lua</h4>
+</div>
+<div class="p-4 bg-gray-50 rounded-lg flex flex-col items-center">
+<div class="w-12 h-12 flex items-center justify-center mb-2">
+<i class="ri-window-line ri-2x text-primary"></i>
+</div>
+<h4 class="text-sm font-medium text-center">C++</h4>
+</div>
+<div class="p-4 bg-gray-50 rounded-lg flex flex-col items-center">
+<div class="w-12 h-12 flex items-center justify-center mb-2">
+<i class="ri-code-box-line ri-2x text-primary"></i>
+</div>
+<h4 class="text-sm font-medium text-center">Python</h4>
+</div>
+<div class="p-4 bg-gray-50 rounded-lg flex flex-col items-center">
+<div class="w-12 h-12 flex items-center justify-center mb-2">
+<i class="ri-html5-line ri-2x text-primary"></i>
+</div>
+<h4 class="text-sm font-medium text-center">HTML/CSS</h4>
+</div>
+<div class="p-4 bg-gray-50 rounded-lg flex flex-col items-center">
+<div class="w-12 h-12 flex items-center justify-center mb-2">
+<i class="ri-javascript-line ri-2x text-primary"></i>
+</div>
+<h4 class="text-sm font-medium text-center">JavaScript</h4>
+</div>
+<div class="p-4 bg-gray-50 rounded-lg flex flex-col items-center">
+<div class="w-12 h-12 flex items-center justify-center mb-2">
+<i class="ri-database-2-line ri-2x text-primary"></i>
+</div>
+<h4 class="text-sm font-medium text-center">SQLite</h4>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Settings Tab Content -->
+<div id="pc-settings-tab" class="tab-content p-6">
+<h2 class="text-2xl font-semibold mb-2">Settings</h2>
+<p class="text-gray-500 mb-6">Configure RoboExec to your preferences</p>
+<div class="grid grid-cols-3 gap-6">
+<div class="col-span-2">
+<div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+<h3 class="text-lg font-medium mb-4">Application Settings</h3>
+<div class="space-y-5">
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium">Auto Update</h4>
+<p class="text-sm text-gray-500">Automatically check for updates</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" value="" class="sr-only peer" checked>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium">Dark Mode</h4>
+<p class="text-sm text-gray-500">Enable dark theme</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" value="" class="sr-only peer">
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium">Notifications</h4>
+<p class="text-sm text-gray-500">Enable push notifications</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" value="" class="sr-only peer" checked>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium">Analytics</h4>
+<p class="text-sm text-gray-500">Share anonymous usage data</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" value="" class="sr-only peer">
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium">Hardware Acceleration</h4>
+<p class="text-sm text-gray-500">Use GPU for better performance</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" value="" class="sr-only peer" checked>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium">Minimize to Tray</h4>
+<p class="text-sm text-gray-500">Keep running in system tray when closed</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" value="" class="sr-only peer" checked>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+<h3 class="text-lg font-medium mb-4">Executor Settings</h3>
+<div class="space-y-5">
+<div>
+<label class="block font-medium mb-2">Script Execution Mode</label>
+<div class="relative">
+<select class="w-full p-3 bg-gray-50 rounded-lg border-none appearance-none cursor-pointer pr-10">
+<option>Standard Mode</option>
+<option>Safe Mode</option>
+<option>Performance Mode</option>
+<option>Advanced Mode</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+<div>
+<label class="block font-medium mb-2">Auto-Save Scripts</label>
+<div class="relative">
+<select class="w-full p-3 bg-gray-50 rounded-lg border-none appearance-none cursor-pointer pr-10">
+<option>Every 5 minutes</option>
+<option>Every 10 minutes</option>
+<option>Every 15 minutes</option>
+<option>Every 30 minutes</option>
+<option>Never</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+<div>
+<label class="block font-medium mb-2">Script Editor Theme</label>
+<div class="relative">
+<select class="w-full p-3 bg-gray-50 rounded-lg border-none appearance-none cursor-pointer pr-10">
+<option>Default</option>
+<option>Dark</option>
+<option>Monokai</option>
+<option>GitHub</option>
+<option>Dracula</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium">Auto-Inject on Game Launch</h4>
+<p class="text-sm text-gray-500">Automatically inject when game starts</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" value="" class="sr-only peer" checked>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium">Script Auto-Completion</h4>
+<p class="text-sm text-gray-500">Show suggestions while typing</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" value="" class="sr-only peer" checked>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-6">
+<h3 class="text-lg font-medium mb-4">Advanced Settings</h3>
+<div class="space-y-5">
+<div>
+<label class="block font-medium mb-2">Script Execution Timeout</label>
+<div class="relative">
+<select class="w-full p-3 bg-gray-50 rounded-lg border-none appearance-none cursor-pointer pr-10">
+<option>30 seconds</option>
+<option>60 seconds</option>
+<option>2 minutes</option>
+<option>5 minutes</option>
+<option>No limit</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+<div>
+<label class="block font-medium mb-2">Memory Usage Limit</label>
+<div class="relative">
+<select class="w-full p-3 bg-gray-50 rounded-lg border-none appearance-none cursor-pointer pr-10">
+<option>256 MB</option>
+<option>512 MB</option>
+<option>1 GB</option>
+<option>2 GB</option>
+<option>No limit</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium">Debug Console</h4>
+<p class="text-sm text-gray-500">Show debug information</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" value="" class="sr-only peer">
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium">Developer Mode</h4>
+<p class="text-sm text-gray-500">Enable advanced developer features</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" value="" class="sr-only peer">
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="col-span-1">
+<div class="bg-white rounded-lg shadow-sm p-6 mb-6 sticky top-20">
+<h3 class="text-lg font-medium mb-4">Account</h3>
+<div class="flex items-center p-4 bg-gray-50 rounded-lg mb-4">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+<span class="text-lg font-medium">GD</span>
+</div>
+<div>
+<h4 class="font-medium">Guest User</h4>
+<p class="text-xs text-gray-500">Free Plan</p>
+</div>
+</div>
+<a href="https://readdy.ai/home/54b4e584-4961-4594-9461-aaa1f3cb883b/07f60af6-5d49-4f6e-8964-5f46c5769141" data-readdy="true" class="block">
+<button class="w-full bg-primary text-white py-3 rounded-button font-medium flex items-center justify-center cursor-pointer mb-3">
+<i class="ri-user-add-line mr-2"></i>
+Create Account
+</button>
+</a>
+<button class="w-full bg-white border border-gray-300 text-gray-700 py-3 rounded-button font-medium flex items-center justify-center cursor-pointer mb-5">
+<i class="ri-login-box-line mr-2"></i>
+Sign In
+</button>
+<div class="border-t pt-5">
+<h4 class="font-medium mb-3">Free Plan Limitations</h4>
+<ul class="space-y-2">
+<li class="flex items-center text-sm text-gray-600">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2">
+<i class="ri-information-line"></i>
+</div>
+<span>Limited script execution</span>
+</li>
+<li class="flex items-center text-sm text-gray-600">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2">
+<i class="ri-information-line"></i>
+</div>
+<span>Basic script library access</span>
+</li>
+<li class="flex items-center text-sm text-gray-600">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2">
+<i class="ri-information-line"></i>
+</div>
+<span>No cloud sync</span>
+</li>
+<li class="flex items-center text-sm text-gray-600">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2">
+<i class="ri-information-line"></i>
+</div>
+<span>Standard support only</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- PC Discord Tooltip -->
+<div id="pc-discord-tooltip" class="discord-tooltip fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-6 z-50 w-96">
+<div class="text-center mb-4">
+<div class="w-20 h-20 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-3">
+<i class="ri-discord-fill ri-3x text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold">Join Our Discord</h3>
+<p class="text-gray-500 mt-1">Get support and connect with other users</p>
+</div>
+<div class="bg-gray-100 rounded p-4 flex items-center justify-between mb-5">
+<span class="font-medium">discord.gg/silenthub</span>
+<button id="copy-discord-pc" class="text-primary">
+<i class="ri-file-copy-line ri-lg"></i>
+</button>
+</div>
+<div class="flex space-x-3">
+<button id="discord-cancel-pc" class="flex-1 py-3 border border-gray-300 rounded-button text-gray-700 font-medium cursor-pointer">Cancel</button>
+<button id="discord-open-pc" class="flex-1 py-3 bg-primary text-white rounded-button font-medium cursor-pointer">Open Discord</button>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const howToUseBtn = document.getElementById('howToUseBtn');
+const howToUseModal = document.getElementById('howToUseModal');
+const closeHowToUse = document.getElementById('closeHowToUse');
+if (howToUseBtn) {
+howToUseBtn.addEventListener('click', function() {
+howToUseModal.classList.add('show');
+});
+}
+if (closeHowToUse) {
+closeHowToUse.addEventListener('click', function() {
+howToUseModal.classList.remove('show');
+});
+}
+// Device detection
+const isMobile = window.innerWidth < 768;
+const mobileView = document.getElementById('mobile-view');
+const pcView = document.getElementById('pc-view');
+if (isMobile) {
+mobileView.style.display = 'block';
+pcView.style.display = 'none';
+} else {
+mobileView.style.display = 'none';
+pcView.style.display = 'block';
+}
+// Mobile tab switching
+const tabButtons = document.querySelectorAll('.tab-button');
+const tabContents = document.querySelectorAll('.tab-content');
+tabButtons.forEach(button => {
+button.addEventListener('click', function() {
+const tabId = this.getAttribute('data-tab');
+// Remove active class from all buttons and tabs
+tabButtons.forEach(btn => btn.classList.remove('active'));
+tabContents.forEach(content => content.classList.remove('active'));
+// Add active class to current button and tab
+this.classList.add('active');
+document.getElementById(tabId).classList.add('active');
+});
+});
+// Discord tooltip functionality for mobile
+const discordBtnMobile = document.getElementById('discord-btn-mobile');
+const discordTooltip = document.getElementById('discord-tooltip');
+const discordCancel = document.getElementById('discord-cancel');
+const discordOpen = document.getElementById('discord-open');
+const copyDiscord = document.getElementById('copy-discord');
+if (discordBtnMobile) {
+discordBtnMobile.addEventListener('click', function() {
+discordTooltip.classList.add('show');
+});
+}
+if (discordCancel) {
+discordCancel.addEventListener('click', function() {
+discordTooltip.classList.remove('show');
+});
+}
+if (discordOpen) {
+discordOpen.addEventListener('click', function() {
+window.open('https://discord.gg/uE5p9pwDb9', '_blank');
+discordTooltip.classList.remove('show');
+});
+}
+if (copyDiscord) {
+copyDiscord.addEventListener('click', function() {
+navigator.clipboard.writeText('https://discord.gg/uE5p9pwDb9');
+// Show copied notification
+const originalIcon = this.innerHTML;
+this.innerHTML = '<i class="ri-check-line"></i>';
+setTimeout(() => {
+this.innerHTML = originalIcon;
+}, 2000);
+});
+}
+// PC sidebar functionality
+const toggleSidebar = document.getElementById('toggle-sidebar');
+const pcSidebar = document.querySelector('.pc-sidebar');
+const pcContent = document.querySelector('.pc-content');
+const sidebarTexts = document.querySelectorAll('.sidebar-text');
+const sidebarIconsOnly = document.querySelectorAll('.sidebar-icon-only');
+if (toggleSidebar) {
+toggleSidebar.addEventListener('click', function() {
+pcSidebar.classList.toggle('collapsed');
+pcContent.classList.toggle('sidebar-collapsed');
+if (pcSidebar.classList.contains('collapsed')) {
+sidebarTexts.forEach(text => text.style.display = 'none');
+sidebarIconsOnly.forEach(icon => icon.style.display = 'inline');
+} else {
+sidebarTexts.forEach(text => text.style.display = 'inline');
+sidebarIconsOnly.forEach(icon => icon.style.display = 'none');
+}
+});
+}
+// PC tab switching
+const sidebarItems = document.querySelectorAll('.sidebar-item');
+const pcTabContents = document.querySelectorAll('.pc-content .tab-content');
+sidebarItems.forEach(item => {
+item.addEventListener('click', function() {
+const tabId = 'pc-' + this.getAttribute('data-tab');
+// Remove active class from all sidebar items and tabs
+sidebarItems.forEach(sidebarItem => {
+sidebarItem.classList.remove('active');
+sidebarItem.classList.remove('bg-primary/10');
+sidebarItem.classList.remove('text-primary');
+sidebarItem.classList.add('hover:bg-gray-100');
+});
+pcTabContents.forEach(content => content.classList.remove('active'));
+// Add active class to current sidebar item and tab
+this.classList.add('active');
+this.classList.add('bg-primary/10');
+this.classList.add('text-primary');
+this.classList.remove('hover:bg-gray-100');
+document.getElementById(tabId).classList.add('active');
+});
+});
+// Discord tooltip functionality for PC
+const discordBtnPC = document.getElementById('discord-btn-pc');
+const pcDiscordTooltip = document.getElementById('pc-discord-tooltip');
+const discordCancelPC = document.getElementById('discord-cancel-pc');
+const discordOpenPC = document.getElementById('discord-open-pc');
+const copyDiscordPC = document.getElementById('copy-discord-pc');
+if (discordBtnPC) {
+discordBtnPC.addEventListener('click', function() {
+pcDiscordTooltip.classList.add('show');
+});
+}
+if (discordCancelPC) {
+discordCancelPC.addEventListener('click', function() {
+pcDiscordTooltip.classList.remove('show');
+});
+}
+if (discordOpenPC) {
+discordOpenPC.addEventListener('click', function() {
+window.open('https://discord.gg/uE5p9pwDb9', '_blank');
+pcDiscordTooltip.classList.remove('show');
+});
+}
+if (copyDiscordPC) {
+copyDiscordPC.addEventListener('click', function() {
+navigator.clipboard.writeText('https://discord.gg/uE5p9pwDb9);
+// Show copied notification
+const originalIcon = this.innerHTML;
+this.innerHTML = '<i class="ri-check-line ri-lg"></i>';
+setTimeout(() => {
+this.innerHTML = originalIcon;
+}, 2000);
+});
+}
+// Apply active styles to mobile tab buttons
+document.querySelectorAll('.tab-button').forEach(button => {
+button.addEventListener('click', function() {
+document.querySelectorAll('.tab-button').forEach(btn => {
+btn.style.color = '';
+});
+this.style.color = '#6366F1';
+});
+});
+// Set initial active tab button color
+document.querySelector('.tab-button.active').style.color = '#6366F1';
+});
+</script>
+</body>
+</html>
