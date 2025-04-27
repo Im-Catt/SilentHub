@@ -1,11 +1,20 @@
-Copyright 2025 Silent Hub
+Copyright © 2025 Silent Hub. All rights reserved.
 
-All rights reserved.
+This website, including but not limited to its source code, object code, structure, design, graphics, text, images, media files, and all other components (collectively referred to as the "Website"), is the intellectual property of Silent Hub and is protected by international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.
 
-This website and its associated source code, designs, media, and content are protected by copyright law and other applicable laws.
+Unauthorized use, reproduction, modification, distribution, transmission, republication, display, or performance of the Website or any portion thereof is strictly prohibited without the prior written consent of Silent Hub.
 
-You may not copy, reproduce, distribute, modify, create derivative works, publicly display, publicly perform, republish, upload, post, transmit, or otherwise exploit any part of this website or its source code without the prior written permission of the copyright owner.
+You may not:
+- Copy, reproduce, distribute, publish, display, perform, modify, create derivative works from, transmit, or in any way exploit any part of the Website or its underlying code or content.
+- Use any part of the Website or its source code for any commercial purpose, or for any public display (commercial or non-commercial).
+- Attempt to decompile, reverse engineer, disassemble, or otherwise reduce the Website or its underlying code to a human-perceivable form.
+- Remove, obscure, or alter any copyright, trademark, or other proprietary notices affixed to or contained within the Website.
+- Redistribute or resell the Website or any derivative works based on the Website without express written permission.
 
-Unauthorized use of the website or its source code for commercial or non-commercial purposes is strictly prohibited.
+Any unauthorized use of the Website or its source code may result in civil and/or criminal prosecution under applicable laws.
 
-You may show the website online in online platforms, however only if you do not claim it as your own.
+The Website is provided "as is" without warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. Silent Hub shall not be liable for any damages arising from the use or inability to use the Website or its content.
+
+Violation of these terms will constitute a breach of intellectual property rights and may subject the infringer to legal liability for damages, injunctive relief, and any other remedies available at law or equity.
+
+For licensing requests, permissions, or inquiries, please contact catt in discord
